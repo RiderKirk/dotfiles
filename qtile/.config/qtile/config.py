@@ -117,39 +117,71 @@ layouts = [
 
 widget_defaults = dict(
     font="sans",
-    fontsize=12,
+    fontsize=20,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        bottom=bar.Bar(
-            [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
-                widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
-            ],
-            24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+from libqtile import qtile
+
+if qtile.core.name == "wayland":
+    screens = [
+        Screen(
+            bottom=bar.Bar(
+                [
+                    # widget.CurrentLayout(),
+                    widget.GroupBox(),
+                    widget.Prompt(),
+                    widget.WindowName(),
+                    widget.Chord(
+                        chords_colors={
+                            "launch": ("#ff0000", "#ffffff"),
+                        },
+                        name_transform=lambda name: name.upper(),
+                    ),
+                    # widget.TextBox("default config", name="default"),
+                    # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                    widget.StatusNotifier(),
+                    # widget.Systray(),
+                    widget.Clock(format="%a %m/%d %I:%M %p", background="999999", foreground="000000"),
+                    # widget.QuickExit(),
+                    widget.Battery(format="{char} {percent:2.0%}", background="008800", low_percentage=0.39, low_background="ff0000", low_foreground="000000"),
+                ],
+                24,
+                # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+                # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            ),
         ),
-    ),
-]
+    ]
+else:
+    screens = [
+        Screen(
+            bottom=bar.Bar(
+                [
+                    # widget.CurrentLayout(),
+                    widget.GroupBox(),
+                    widget.Prompt(),
+                    widget.WindowName(),
+                    widget.Chord(
+                        chords_colors={
+                            "launch": ("#ff0000", "#ffffff"),
+                        },
+                        name_transform=lambda name: name.upper(),
+                    ),
+                    # widget.TextBox("default config", name="default"),
+                    # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                    # widget.StatusNotifier(),
+                    widget.Systray(),
+                    widget.Clock(format="%a %m/%d %I:%M %p", background="999999", foreground="000000"),
+                    # widget.QuickExit(),
+                    widget.Battery(format="{char} {percent:2.0%}", background="008800", low_percentage=0.39, low_background="ff0000", low_foreground="000000"),
+                ],
+                24,
+                # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+                # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            ),
+        ),
+    ]
 
 # Drag floating layouts.
 mouse = [
@@ -195,3 +227,19 @@ wl_input_rules = None
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
+# startup
+import subprocess
+
+from libqtile import hook
+
+@hook.subscribe.startup_once
+def auto_start():
+   processes = [
+           ['nitrogen', '--restore'],
+           ['blueman-applet'],
+           ['nm-applet']
+           ]
+
+   for p in processes:
+       subprocess.Popen(p)

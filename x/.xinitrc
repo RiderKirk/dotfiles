@@ -1,5 +1,8 @@
+#!/bin/sh
+
 # use capslock as control
 setxkbmap -option ctrl:nocaps
+setxkbmap -option altwin:swap_alt_win
 
 # start compositor
 picom &
