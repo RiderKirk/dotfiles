@@ -18,10 +18,19 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ### Input configuration
 
+# multimedia
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -x -RTMIN+11 waybar
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -x -RTMIN+11 waybar
+bindsym XF86AudioMute exec amixer -q set Master mute && pkill -x -RTMIN+11 waybar
+
+# keyboard
 input "type:keyboard" {
 	xkb_options altwin:swap_alt_win,ctrl:nocaps
 }
 
+# mouse
 seat * hide_cursor 4000
 seat * hide_cursor when-typing enable
 
