@@ -4,8 +4,8 @@ My personal dotfiles. I use stow to symlink to my home directory.
 
 # TODO
 
-- [ ] tmux
+- [x] tmux
 - [ ] nvim
-- [ ] resolve alacritty and tmux redundancies
+- [x] resolve alacritty and tmux redundancies
 - [ ] brightness and volume control hotkeys
-- [ ] incorporate the configurations used on my mac
+- [x] incorporate the configurations used on my mac
