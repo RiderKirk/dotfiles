@@ -24,6 +24,9 @@ alias ta="tmux attach"
 alias tl="tmux ls"
 alias ga="git add ."
 alias gc="git commit"
+alias vim="nvim"
+alias vi="nvim"
+alias nv="nvim"
 
 # prompt
 parse_git_branch() {
