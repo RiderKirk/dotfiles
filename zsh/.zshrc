@@ -14,5 +14,13 @@ compinit
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
+alias la="ls -a"
+alias mkdir="mkdir -p"
+alias gs="git status"
+
 # prompt
-PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
+parse_git_branch() {
+	git branch 2> /dev/null | sed -n -e ' s/^\* \(.*\)/[\1] /p '
+}
+setopt PROMPT_SUBST
+PROMPT='%F{blue}%n@%m%f %F{yellow}%~%f %F{green}$(parse_git_branch)%f%# '
