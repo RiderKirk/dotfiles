@@ -27,10 +27,10 @@ key_bindings:
   - { key: F,        mods: Control|Shift, mode: ~Search,     action: ReceiveChar }
   - { key: B,        mods: Control|Shift, mode: ~Search,     action: ReceiveChar }
   # copy/paste
-  - { key: V,        mods: Control|Shift, mode: ~Vi,         action: ReceiveChar }
+  # - { key: V,        mods: Control|Shift, mode: ~Vi,         action: ReceiveChar }
   - { key: C,        mods: Control|Shift,                    action: ReceiveChar }
   - { key: C,        mods: Control|Shift, mode: Vi|~Search,  action: ReceiveChar }
-  - { key: Insert,   mods: Shift,                            action: ReceiveChar }
+    # - { key: Insert,   mods: Shift,                            action: ReceiveChar }
   # vi mode
   - { key: Space,    mods: Control|Shift,                    action: ReceiveChar }
   # unnecessary close window command
