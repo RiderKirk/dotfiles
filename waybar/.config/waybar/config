@@ -30,16 +30,16 @@
 				"critical": 15
 			},
 			"format": "{icon}  {capacity}%",
-			"format-charging": "{capacity}% ",
-			"format-alt": "{time} {icon}",
+			"format-charging": " {capacity}%",
+			"format-alt": "{icon} {time}",
 			"format-icons": ["", "", "", "", ""]
 		},
 		"network": {
 			"format-wifi": " {essid}",
-			"format-ethernet": "{ipaddr}/{cidr} ",
-			"tooltip-format": "{ifname} via {gwaddr} ",
-			"format-linked": "{ifname} (No IP) ",
-			"format-disconnected": "Disconnected ⚠",
+			"format-ethernet": " {ipaddr}/{cidr}",
+			"tooltip-format": " {ifname} via {gwaddr}",
+			"format-linked": " {ifname} (No IP)",
+			"format-disconnected": "⚠ Disconnected",
 			"format-alt": "{ifname}: {ipaddr}/{cidr}"
 		},
 		"custom/alsa": {
