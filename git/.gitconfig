@@ -1,5 +1,7 @@
+[core]
+	excludesfile = ~/.gitignore_global
+[user]
+	name = Rider
+	email = 73277718+RiderKirk@users.noreply.github.com
 [init]
 	defaultBranch = main
-[user]
-	name = RiderKirk
-	email = 73277718+RiderKirk@users.noreply.github.com
