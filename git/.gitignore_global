@@ -6,3 +6,5 @@
 .history
 .local
 package-lock.json
+.idea
+__pycache__
