@@ -1,0 +1,10 @@
+.ruby_version
+.DS_Store
+*.log
+*.swp
+*.bak
+.history
+.local
+package-lock.json
+.idea
+__pycache__
