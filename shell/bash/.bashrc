@@ -1,0 +1,30 @@
+# Bash history settings
+HISTFILE=~/.bash_history
+HISTSIZE=1000
+SAVEHIST=1000
+
+# Colorful output
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+alias la="ls -a"
+alias mkdir="mkdir -p"
+alias gs="git status"
+alias pm="pacman"
+alias sd="sudo "
+alias gd="git diff"
+alias ta="tmux attach"
+alias tl="tmux ls"
+alias ga="git add ."
+alias gc="git commit"
+alias vim="nvim"
+alias vi="nvim"
+alias nv="nvim"
+
+# Prompt
+parse_git_branch() {
+    git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1] /p'
+}
+
+PS1='\[\033[34m\]\u@\h\[\033[0m\] \[\033[33m\]\w\[\033[0m\] \[\033[32m\]$(parse_git_branch)\[\033[0m\]\$ '
+
