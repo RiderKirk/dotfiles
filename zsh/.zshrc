@@ -16,17 +16,8 @@ alias grep='grep --color=auto'
 
 alias la="ls -a"
 alias mkdir="mkdir -p"
-alias gs="git status"
-alias pm="pacman"
-alias sd="sudo "
-alias gd="git diff"
 alias ta="tmux attach"
 alias tl="tmux ls"
-alias ga="git add ."
-alias gc="git commit"
-alias vim="nvim"
-alias vi="nvim"
-alias nv="nvim"
 
 # prompt
 parse_git_branch() {
