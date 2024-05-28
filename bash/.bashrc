@@ -25,3 +25,6 @@ parse_git_branch() {
 
 PS1='\[\033[34m\]\u@\h\[\033[0m\] \[\033[33m\]\w\[\033[0m\] \[\033[32m\]$(parse_git_branch)\[\033[0m\]\$ '
 
+if [ $(hostname) = "box" ]; then
+    source /usr/local/share/chruby/chruby.sh
+fi
