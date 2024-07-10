@@ -25,3 +25,6 @@ parse_git_branch() {
 }
 setopt PROMPT_SUBST
 PROMPT='%F{blue}%n@%m%f %F{yellow}%~%f %F{green}$(parse_git_branch)%f%# '
+
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/auto.sh
