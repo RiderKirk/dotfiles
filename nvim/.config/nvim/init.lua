@@ -15,16 +15,26 @@ end
 -- Set up 'mini.deps' (customize to your liking)
 require('mini.deps').setup({ path = { package = path_package } })
 
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local add = MiniDeps.add
 
 add({
 	source = 'neovim/nvim-lspconfig',
 	depends = {
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim'
-        }
+		'williamboman/mason.nvim',
+		'williamboman/mason-lspconfig.nvim'
+	}
 })
 require('mason').setup()
+require('mason-lspconfig').setup()
+require('lspconfig').lua_ls.setup {
+	settings = {
+		Lua = {
+			diagnostics = {
+				disable = { "lowercase-global", "undefined-global" }
+			},
+		}
+	}
+}
 
 add({
 	source = 'nvim-treesitter/nvim-treesitter'
