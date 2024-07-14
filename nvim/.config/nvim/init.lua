@@ -1,44 +1,85 @@
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
-vim.g.mapleader = " "
-
--- bootstrap lazy and all plugins
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-
-if not vim.loop.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+-- MINI
+local path_package = vim.fn.stdpath('data') .. '/site/'
+local mini_path = path_package .. 'pack/deps/start/mini.nvim'
+if not vim.loop.fs_stat(mini_path) then
+    vim.cmd('echo "Installing `mini.nvim`" | redraw')
+    local clone_cmd = {
+        'git', 'clone', '--filter=blob:none',
+        'https://github.com/echasnovski/mini.nvim', mini_path
+    }
+    vim.fn.system(clone_cmd)
+    vim.cmd('packadd mini.nvim | helptags ALL')
+    vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
 
-vim.opt.rtp:prepend(lazypath)
+require('mini.deps').setup({ path = { package = path_package } })
+require('mini.ai').setup()
+require('mini.surround').setup()
+require('mini.files').setup()
 
-local lazy_config = require "configs.lazy"
+-- PLUGINS
+local add = MiniDeps.add
 
--- load plugins
-require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-    config = function()
-      require "options"
-    end,
-  },
-
-  { import = "plugins" },
-}, lazy_config)
-
--- load theme
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
-
-require "nvchad.autocmds"
-
-vim.schedule(function()
-  require "mappings"
-end)
-
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { "*.slim" },
-  command = "set ft=slim",
+add({
+    source = 'neovim/nvim-lspconfig',
+    depends = {
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim'
+    }
 })
+
+add({
+    source = 'nvim-treesitter/nvim-treesitter'
+})
+
+-- SETUP
+require('nvim-treesitter.configs').setup({
+    ensure_installed = {
+        "vimdoc",
+        "luadoc",
+        "vim",
+        "lua",
+        "markdown"
+    },
+    highlight = { enable = true },
+    indent = { enable = true }
+})
+
+require('mason').setup()
+require('mason-lspconfig').setup()
+require('lspconfig').lua_ls.setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                disable = { "lowercase-global", "undefined-global" }
+            },
+        }
+    }
+}
+
+-- SETTINGS
+vim.g.mapleader = " "
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.opt.mouse = 'a'
+
+vim.opt.hlsearch = false
+
+vim.opt.wrap = false
+
+-- KEYMAPS
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+vim.keymap.set("n", "n", "nzz")
+vim.keymap.set("n", "N", "Nzz")
+
+vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<CR>', {noremap = true})
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
