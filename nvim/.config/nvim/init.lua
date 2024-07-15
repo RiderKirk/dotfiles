@@ -16,6 +16,10 @@ require('mini.deps').setup({ path = { package = path_package } })
 require('mini.ai').setup()
 require('mini.surround').setup()
 require('mini.files').setup()
+require('mini.basics').setup()
+require('mini.comment').setup()
+require('mini.completion').setup()
+require('mini.fuzzy').setup()
 
 -- PLUGINS
 local add = MiniDeps.add
@@ -32,6 +36,17 @@ add({
     source = 'nvim-treesitter/nvim-treesitter'
 })
 
+add({
+    source = 'slim-template/vim-slim'
+})
+
+add({
+    source = 'nvim-telescope/telescope.nvim',
+    depends = {
+        'nvim-lua/plenary.nvim'
+    }
+})
+
 -- SETUP
 require('nvim-treesitter.configs').setup({
     ensure_installed = {
@@ -39,7 +54,9 @@ require('nvim-treesitter.configs').setup({
         "luadoc",
         "vim",
         "lua",
-        "markdown"
+        "markdown",
+        "ruby",
+        "html"
     },
     highlight = { enable = true },
     indent = { enable = true }
@@ -47,6 +64,7 @@ require('nvim-treesitter.configs').setup({
 
 require('mason').setup()
 require('mason-lspconfig').setup()
+
 require('lspconfig').lua_ls.setup {
     settings = {
         Lua = {
@@ -57,17 +75,21 @@ require('lspconfig').lua_ls.setup {
     }
 }
 
--- SETTINGS
-vim.g.mapleader = " "
+require('lspconfig').solargraph.setup{}
+require('lspconfig').standardrb.setup{}
 
-vim.opt.number = true
+require('telescope').setup({
+    defaults = {
+        generic_sorter = require('mini.fuzzy').get_telescope_sorter
+    }
+})
+
+-- SETTINGS
 vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
-vim.opt.mouse = 'a'
 
 vim.opt.hlsearch = false
 
@@ -82,4 +104,8 @@ vim.keymap.set("n", "N", "Nzz")
 
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<CR>', {noremap = true})
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>fr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
