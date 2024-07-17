@@ -16,10 +16,16 @@ require('mini.deps').setup({ path = { package = path_package } })
 require('mini.ai').setup()
 require('mini.surround').setup()
 require('mini.files').setup()
-require('mini.basics').setup()
+require('mini.basics').setup({
+    mappings = {
+        windows = true
+    }
+})
+require('mini.bracketed').setup()
 require('mini.comment').setup()
 require('mini.completion').setup()
 require('mini.fuzzy').setup()
+require('mini.tabline').setup()
 
 -- PLUGINS
 local add = MiniDeps.add
