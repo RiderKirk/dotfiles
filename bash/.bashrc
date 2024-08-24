@@ -10,6 +10,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 alias la="ls -a"
+alias ll="ls -al"
 alias mkdir="mkdir -p"
 alias gs="git status"
 alias gd="git diff"
