@@ -1,8 +1,0 @@
-[font]
-size = 20.0
-
-[font.normal]
-family = "RobotoMono Nerd Font"
-
-[selection]
-save_to_clipboard = false
