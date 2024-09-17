@@ -9,13 +9,14 @@ vim.opt.hlsearch = false
 
 vim.opt.wrap = false
 
+vim.opt.clipboard:append("unnamedplus")
+
 -- KEYMAPS
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
-
 
 vim.keymap.set("n", "<leader>fr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
