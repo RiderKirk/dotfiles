@@ -106,6 +106,7 @@ if (not vim.g.vscode) then
 
     require('lspconfig').solargraph.setup{}
     require('lspconfig').standardrb.setup{}
+    require('lspconfig').clangd.setup{}
 
     require('telescope').setup({
         defaults = {
