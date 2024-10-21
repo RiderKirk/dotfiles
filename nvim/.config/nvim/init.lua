@@ -85,7 +85,8 @@ if (not vim.g.vscode) then
             "lua",
             "markdown",
             "ruby",
-            "html"
+            "html",
+            "cpp"
         },
         highlight = { enable = true },
         indent = { enable = true }
@@ -106,7 +107,11 @@ if (not vim.g.vscode) then
 
     require('lspconfig').solargraph.setup{}
     require('lspconfig').standardrb.setup{}
-    require('lspconfig').clangd.setup{}
+    require('lspconfig').clangd.setup{
+        init_options = {
+            fallbackFlags = {'--std=c++20'}
+        },
+    }
 
     require('telescope').setup({
         defaults = {
@@ -120,4 +125,5 @@ if (not vim.g.vscode) then
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+
 end
